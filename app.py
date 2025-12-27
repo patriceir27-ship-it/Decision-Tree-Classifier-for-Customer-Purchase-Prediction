@@ -3,38 +3,6 @@ import pandas as pd
 import numpy as np
 import joblib
 
-from sklearn.tree import plot_tree
-import matplotlib.pyplot as plt
-import streamlit as st
-
-st.subheader("🌳 Decision Tree Visualization")
-
-if st.button("Show Decision Tree (Top Levels)"):
-    fig = plt.figure(figsize=(22, 12))
-    plot_tree(
-        model,
-        feature_names=feature_cols,
-        class_names=["No", "Yes"],
-        filled=True,
-        rounded=True,
-        max_depth=4  # VERY IMPORTANT
-    )
-    st.pyplot(fig, clear_figure=True)
-    st.caption("Showing top 4 levels only (for readability & performance).")
-
-
-from sklearn.tree import export_text
-
-st.subheader("Decision Rules (Text)")
-
-if st.button("Show Decision Rules"):
-    rules = export_text(
-        model,
-        feature_names=feature_cols,
-        max_depth=4
-    )
-    st.text(rules)
-
 
 st.set_page_config(page_title="Bank Marketing — Decision Tree", layout="wide")
 
@@ -96,3 +64,37 @@ st.download_button(
     file_name="tree_predictions.csv",
     mime="text/csv"
 )
+
+
+from sklearn.tree import plot_tree
+import matplotlib.pyplot as plt
+import streamlit as st
+
+st.subheader("🌳 Decision Tree Visualization")
+
+if st.button("Show Decision Tree (Top Levels)"):
+    fig = plt.figure(figsize=(22, 12))
+    plot_tree(
+        model,
+        feature_names=feature_cols,
+        class_names=["No", "Yes"],
+        filled=True,
+        rounded=True,
+        max_depth=4  # VERY IMPORTANT
+    )
+    st.pyplot(fig, clear_figure=True)
+    st.caption("Showing top 4 levels only (for readability & performance).")
+
+
+from sklearn.tree import export_text
+
+st.subheader("Decision Rules (Text)")
+
+if st.button("Show Decision Rules"):
+    rules = export_text(
+        model,
+        feature_names=feature_cols,
+        max_depth=4
+    )
+    st.text(rules)
+
