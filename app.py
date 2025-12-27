@@ -3,6 +3,19 @@ import pandas as pd
 import numpy as np
 import joblib
 
+from sklearn.tree import export_text
+
+st.subheader("Decision Rules (Text)")
+
+if st.button("Show Decision Rules"):
+    rules = export_text(
+        model,
+        feature_names=feature_cols,
+        max_depth=4
+    )
+    st.text(rules)
+
+
 st.set_page_config(page_title="Bank Marketing — Decision Tree", layout="wide")
 
 @st.cache_resource
@@ -29,7 +42,7 @@ with st.expander("Show required PCA columns"):
 
 uploaded = st.file_uploader("Upload CSV", type=["csv"])
 if uploaded is None:
-    st.info("⬆️ Upload your PCA-transformed CSV to get predictions.")
+    st.info("Upload your PCA-transformed CSV to get predictions.")
     st.stop()
 
 df = pd.read_csv(uploaded)
